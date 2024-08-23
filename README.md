@@ -54,11 +54,6 @@ The RPC feature allows distributed LLM inference with `llama.cpp` by offloading 
    ./bin/llama-cli -m {path_to_model} -p {prompt} --repeat-penalty {penalty_value} -n {num_tokens} --rpc {ip1}:{port1},{ip2}:{port2},{ip3}:{port3} -ngl {num_gpu_layers}
    ```
 
-   Example for personal use with Meta-Llama-3.1-8B-Instruct model:
-   ```sh
-   ./bin/llama-cli -m /Volumes/PRO-G40/weights/llama-3.1/Meta-Llama-3.1-8B-Instruct/llama-3.1-model.gguf -p "Write a short story about a robot learning to paint." --repeat-penalty 1.1 -n 256 --rpc 127.0.0.1:50052 -ngl 99
-   ```
-
 ## Best Practices
 - Keep the repository updated:
   ```sh
@@ -69,12 +64,49 @@ The RPC feature allows distributed LLM inference with `llama.cpp` by offloading 
   cd build-rpc
   cmake --build . --config Release
   ```
+## Troubleshooting
+
+   1. RPC connection issues: Ensure firewalls allow traffic on the specified ports.
+   2. Metal compilation errors: Update to the latest macOS and Xcode versions.
+   3. Out of memory errors: Adjust model size or batch size based on available GPU memory.
+
+## Performance Optimization
+
+   - Use `-ngl` to balance GPU layers across machines for optimal performance.
+   - Experiment with different batch sizes (`--batch-size`) 
+   - Quantize (`-q`) for larger models to reduce memory usage.
+
 
 ## Useful Info
-https://github.com/ggerganov/llama.cpp
-https://github.com/ggerganov/llama.cpp/tree/master/examples/rpc
-https://github.com/ggerganov/llama.cpp/blob/master/docs/build.md
+- https://github.com/ggerganov/llama.cpp
+- https://github.com/ggerganov/llama.cpp/tree/master/examples/rpc
+- https://github.com/ggerganov/llama.cpp/blob/master/docs/build.md
 
 reach out on twitter if you have questions
 
+## Converting HuggingFace Models to GGUF Format
+
+1. Ensure you have the required dependencies:
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+2. Navigate to the llama.cpp directory:
+   ```sh
+   cd path/to/llama.cpp
+   ```
+
+3. Run the conversion script:
+   ```sh
+   python3 convert_hf_to_gguf.py /path/to/input/model/ --outfile /path/to/output/model.gguf
+   ```
+
+   Example:
+   ```sh
+   python3 convert_hf_to_gguf.py /Volumes/PRO-G40/weights/llama-3.1/Meta-Llama-3.1-8B-Instruct/ --outfile /Volumes/PRO-G40/weights/llama-3.1/Meta-Llama-3.1-8B-Instruct/llama-3.1-model.gguf
+   ```
+
+4. Use the converted model with llama.cpp:
+
+Note: Ensure you have sufficient disk space for the conversion process.
 
