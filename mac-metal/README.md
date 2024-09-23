@@ -33,7 +33,10 @@ The RPC feature allows distributed LLM inference with `llama.cpp` by offloading 
    ```sh
    ./bin/rpc-server -p 50052
    ```
-
+   If doing multi-node compute, each node must be told its ip at start
+   ```sh
+   ./bin/rpc-server -H 10.0.0.1 -p 50052
+   ```
 ## Building llama.cpp with RPC Support
 
 1. Build llama.cpp with RPC:
