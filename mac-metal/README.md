@@ -37,6 +37,7 @@ The RPC feature allows distributed LLM inference with `llama.cpp` by offloading 
    ```sh
    ./bin/rpc-server -H 10.0.0.1 -p 50052
    ```
+
 ## Building llama.cpp with RPC Support
 
 1. Build llama.cpp with RPC:
@@ -78,7 +79,7 @@ The RPC feature allows distributed LLM inference with `llama.cpp` by offloading 
    - Use `-ngl` to balance GPU layers across machines for optimal performance.
    - Experiment with different batch sizes (`--batch-size`) 
    - Quantize (`-q`) for larger models to reduce memory usage.
-
+   - Currently working on performance tuning for llama-405, please contact or reach out if you are doing the same with M2 mac studios
 
 ## Useful Info
 - https://github.com/ggerganov/llama.cpp
